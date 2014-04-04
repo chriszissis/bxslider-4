@@ -80,7 +80,9 @@
 		onSlideBefore: function() {},
 		onSlideAfter: function() {},
 		onSlideNext: function() {},
-		onSlidePrev: function() {}
+		onSlidePrev: function() {},
+		onSliderHoverOver: function() {},
+		onSliderHoverOut: function() {}
 	}
 
 	$.fn.bxSlider = function(options){
@@ -867,6 +869,7 @@
 						// create a new autoPaused value which will be used by the relative "mouseout" event
 						slider.autoPaused = true;
 					}
+					slider.settings.onSliderHoverOver();
 				}, function(){
 					// if the autoPaused value was created be the prior "mouseover" event
 					if(slider.autoPaused){
@@ -875,6 +878,7 @@
 						// reset the autoPaused value
 						slider.autoPaused = null;
 					}
+					slider.settings.onSliderHoverOut();
 				});
 			}
 		}
@@ -1172,7 +1176,6 @@
 					var requestEl = slideIndex * getMoveBy();
 					position = slider.children.eq(requestEl).position();
 				}
-
 				/* If the position doesn't exist
 				 * (e.g. if you destroy the slider on a next click),
 				 * it doesn't throw an error.
